@@ -13,12 +13,12 @@ java -jar falalib.jar
 ```
 Caso nenhuma instrução seja dada, uma mensagem de ajuda é exibida.
 
-Compilação do arquivo de teste, presente no diretório `g2p/`:   
+Compilação do arquivo de teste, presente no diretório `fala-libs/`:   
 ```
 javac -cp ".:falalib.jar" TestG2P.java
 ```
 
-Execução do arquivo de teste, presente no diretório `g2p/`:   
+Execução do arquivo de teste, presente no diretório `fala-libs/`:   
 ```
 java  -cp ".:falalib.jar" TestG2P [<PALAVRA> | <ENTRADA.list> <BOOLEAN>]
 ```
