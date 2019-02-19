@@ -57,3 +57,7 @@ java  -cp ".:falalib.jar" Runlib
 Caso a localização da lib seja alterada, para compilação do `Runlib.java`, 
 altere o _classpath_ de `".:falalib.jar"` para `
 ".:/nova/localização/do/falalib.jar"`.
+
+__Grupo FalaBrasil (2019)__    
+__Universidade Federal do Pará__    
+Daniel Santana - daniel........@gmail.com
