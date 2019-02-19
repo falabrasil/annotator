@@ -30,15 +30,16 @@ Usage 8: java -jar falalib.jar <ENTRADA> <SAIDA> -ioc{C}
   <FRASE>:   frase entre aspas, por exemplo: "a casa era amarela"
 
 Lista de flags:
--i  --input  (caso entrada seja arquivo)
--o  --output (caso saída seja arquivo)
--c  --cross  (caso crossword deva ser usado)
--C           (caso a saída do crossword deva ser detalhada)
--a  --ascii  (caso a saída deva conter apenas caracteres ascii)
--v  --vowel  (para usar identificador de vogal tônica)
--s  --syllab (para usar separador silábico)
--g  --g2p    (para usar o conversor grafema fonema)
--h  --help   (para exibir ajuda para desenvolvedores)
+-i  --input   (caso entrada seja arquivo)
+-o  --output  (caso saída seja arquivo)
+-c  --cross   (caso crossword deva ser usado)
+-C  --vcross  (caso a saída do crossword deva ser detalhada)
+-a  --ascii   (caso a saída deva conter apenas caracteres ascii)
+-v  --vowel   (para usar identificador de vogal tônica)
+-s  --syllab  (para usar separador silábico)
+-g  --g2p     (para usar o conversor grafema fonema)
+-G  --safeg2p (para filtrar os caracteres não reconhecidos pelo g2p)
+-h  --help    (para exibir ajuda para desenvolvedores)
 ```
 
 A compilação do arquivo `Runlib.java` não é obrigatória para utilizar as
@@ -60,4 +61,4 @@ altere o _classpath_ de `".:falalib.jar"` para `
 
 __Grupo FalaBrasil (2019)__    
 __Universidade Federal do Pará__    
-Daniel Santana - daniel........@gmail.com
+Daniel Santana - daniel.santana.1661@gmail.com
