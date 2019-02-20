@@ -7,13 +7,15 @@ import ufpa.falabrasil.GraphemeToPhoneme;
 import ufpa.falabrasil.Syllabificator;
 import ufpa.falabrasil.StressVowel;
 import ufpa.falabrasil.Cross;
-import ufpa.Flags;
-import ufpa.Filehandler;
+import ufpa.util.Progress;
+import ufpa.util.Flags;
+import ufpa.util.Filehandler;
 public class Runlib{
-	private final char[] pflags = {'G','i','o','c','a','v','s','h','g','w','C',
-									'-'};
-	private final String[] eflags = {"safeg2p","input","output","cross","ascii",
-								"vowel","syllab","help","g2p","word","vcross"};
+	private final char[] pflags = {'p','G','i','o','c','a','v','s','h','g',
+									'C'};
+	private final String[] eflags = {
+		"progress","safeg2p","input","output","cross","ascii","vowel",
+									"syllab","help","g2p","vcross"};
 	private String[] params;
 	private ArrayList<String> output;
 	private GraphemeToPhoneme g = new GraphemeToPhoneme();
@@ -22,6 +24,7 @@ public class Runlib{
 	private Cross             c = new Cross();
 	private Flags             f = new Flags(pflags);
 	private Filehandler       a = new Filehandler();
+	private int        pBarSize = 100;
 	private Runlib(String[] args){
 		//expande as flags
 		for(int i = 0; i < this.eflags.length; i++)
@@ -32,6 +35,7 @@ public class Runlib{
 		//configura os parâmetros do crossword
 		this.c.setG2PFilter(this.f.hasFlag('G'));
 		this.c.setASCII(this.f.hasFlag('a'));
+		this.c.setPBar(this.f.hasFlag('p'),pBarSize);
 	}
 
 
@@ -116,6 +120,10 @@ public class Runlib{
 				//vogal tônica
 				saida += this.v.findStress(palavra);
 			outText.add(palavra + "\t" + saida.trim());
+			if(this.f.hasFlag('p')){
+				System.out.print(
+						new Progress().getBar(this.pBarSize,i,inText.size()));
+			}
 		}
 		return outText;
 	}
@@ -187,7 +195,7 @@ public class Runlib{
 		ClassLoader cl = this.getClass().getClassLoader();
 		BufferedReader br;
 		br = new BufferedReader(new InputStreamReader(cl.getResourceAsStream(
-				"ufpa/quickhelp")));
+				"ufpa/util/quickhelp")));
 		String message = "";
 		try{
 			for(String line = br.readLine(); 
@@ -203,7 +211,7 @@ public class Runlib{
 			case 1:
 				//ajuda para desenvolvedores
 				br = new BufferedReader(new InputStreamReader(
-						cl.getResourceAsStream("ufpa/devhelp")));
+						cl.getResourceAsStream("ufpa/util/devhelp")));
 				try{
 					for(String line = br.readLine(); 
 							line != null; 
