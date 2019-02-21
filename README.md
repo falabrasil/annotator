@@ -30,17 +30,18 @@ Usage 8: java -jar falalib.jar <ENTRADA> <SAIDA> -ioc{C}
   <FRASE>:   frase entre aspas, por exemplo: "a casa era amarela"
 
 Lista de flags:
--i  --input    (caso entrada seja arquivo)
--o  --output   (caso saída seja arquivo)
--c  --cross    (caso crossword deva ser usado)
--C  --vcross   (caso a saída do crossword deva ser detalhada)
--a  --ascii    (caso a saída deva conter apenas caracteres ascii)
--v  --vowel    (para usar identificador de vogal tônica)
--s  --syllab   (para usar separador silábico)
--g  --g2p      (para usar o conversor grafema fonema)
--G  --safeg2p  (para filtrar os caracteres não reconhecidos pelo g2p)
--h  --help     (para exibir ajuda para desenvolvedores)
--p  --progress (mostra uma barra de progresso)
+-i  --input       (caso entrada seja arquivo)
+-o  --output      (caso saída seja arquivo)
+-c  --cross       (caso crossword deva ser usado)
+-C  --vcross      (caso a saída do crossword deva ser detalhada)
+-a  --ascii       (caso a saída deva conter apenas caracteres ascii)
+-v  --vowel       (para usar identificador de vogal tônica)
+-s  --syllab      (para usar separador silábico)
+-g  --g2p         (para usar o conversor grafema fonema)
+-G  --safeg2p     (para filtrar os caracteres não reconhecidos pelo g2p)
+-h  --help        (para exibir ajuda para desenvolvedores)
+-p  --progress    (mostra uma barra de progresso)
+-m  --multithread (função multithread experimental para uso com -i{g|s|v})
 ```
 
 A compilação do arquivo `Runlib.java` não é obrigatória para utilizar as

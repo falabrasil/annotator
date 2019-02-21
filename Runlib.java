@@ -7,14 +7,12 @@ import ufpa.falabrasil.GraphemeToPhoneme;
 import ufpa.falabrasil.Syllabificator;
 import ufpa.falabrasil.StressVowel;
 import ufpa.falabrasil.Cross;
-import ufpa.util.Progress;
-import ufpa.util.Flags;
-import ufpa.util.Filehandler;
+import ufpa.util.*;
 public class Runlib{
-	private final char[] pflags = {'p','G','i','o','c','a','v','s','h','g',
+	private final char[] pflags = {'m','p','G','i','o','c','a','v','s','h','g',
 									'C'};
 	private final String[] eflags = {
-		"progress","safeg2p","input","output","cross","ascii","vowel",
+		"multithread","progress","safeg2p","input","output","cross","ascii","vowel",
 									"syllab","help","g2p","vcross"};
 	private String[] params;
 	private ArrayList<String> output;
@@ -24,7 +22,8 @@ public class Runlib{
 	private Cross             c = new Cross();
 	private Flags             f = new Flags(pflags);
 	private Filehandler       a = new Filehandler();
-	private int        pBarSize = 100;
+	private ConcurrentGSS     m;
+	private int        pBarSize = 80;
 	private Runlib(String[] args){
 		//expande as flags
 		for(int i = 0; i < this.eflags.length; i++)
@@ -50,8 +49,12 @@ public class Runlib{
 		}
 		//se não estiver usando crossword
 		else{
+			//executa com 2 threads
+			if(run.f.hasFlag('m') && run.f.hasFlag('i')){
+				run.output = run.forMult(run.params[0]);
+			}
 			//se entrada for arquivo
-			if(run.f.hasFlag('i')) run.output = run.forFile(run.params[0]);
+			else if(run.f.hasFlag('i')) run.output = run.forFile(run.params[0]);
 			//se entrada for palavra
 			else run.output = run.forWord(run.params[0]);
 		}
@@ -87,6 +90,27 @@ public class Runlib{
 		this.c.setInputAsArray(inText.toArray(new String[inText.size()]));
 		return this.forCrosswrd();
 	}
+	//configura multithread
+	private ArrayList<String> forMult(String loadNome){
+		this.m = new ConcurrentGSS(this.pBarSize);
+		ArrayList<String> outPart  = new ArrayList<String>(); 
+		ArrayList<String> textPart = 
+			this.m.prepare(this.f,this.a.loadFile(loadNome));
+		Thread concg = new Thread(this.m);
+		concg.start();
+		outPart = this.useClasses(textPart);
+		while(!this.m.isFinished()){
+			try{
+				Thread.sleep(300);
+			} catch (InterruptedException E){
+				System.err.println("Fatal error!");
+				E.printStackTrace(System.out);
+				System.exit(0);
+			}
+		}
+		System.out.println();
+		return this.m.joinOutput(outPart);
+	}
 
 
 	//execução
@@ -121,10 +145,11 @@ public class Runlib{
 				saida += this.v.findStress(palavra);
 			outText.add(palavra + "\t" + saida.trim());
 			if(this.f.hasFlag('p')){
-				System.out.print(
+				System.out.print("Thread 0 "+
 						new Progress().getBar(this.pBarSize,i,inText.size()));
 			}
 		}
+		if(!this.f.hasFlag('m'))System.out.println();
 		return outText;
 	}
 	//uso do crossword
@@ -165,6 +190,10 @@ public class Runlib{
 	//erro e ajuda
 	//valida o uso das flags
 	private void validateFlagUsage(int argLen){
+		//mensagem de ajuda para desenvolvedores
+		if(this.f.hasFlag('h')){
+			this.showUsageMessage(1);
+		}
 		//erro: nenhum dado de entrada
 		if(argLen == 0){
 			this.showUsageMessage(3);
