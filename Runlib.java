@@ -9,10 +9,10 @@ import ufpa.falabrasil.StressVowel;
 import ufpa.falabrasil.Cross;
 import ufpa.util.*;
 public class Runlib{
-	private final char[] pflags = {'m','p','G','i','o','c','a','v','s','h','g',
+	private final char[] pflags = {'t','p','G','i','o','c','a','v','s','h','g',
 									'C'};
 	private final String[] eflags = {
-		"multithread","progress","safeg2p","input","output","cross","ascii","vowel",
+		"threads","progress","safeg2p","input","output","cross","ascii","vowel",
 									"syllab","help","g2p","vcross"};
 	private String[] params;
 	private ArrayList<String> output;
@@ -22,8 +22,7 @@ public class Runlib{
 	private Cross             c = new Cross();
 	private Flags             f = new Flags(pflags);
 	private Filehandler       a = new Filehandler();
-	private ConcurrentGSS     m;
-	private int        pBarSize = 80;
+	private int        pBarSize = 50;
 	private Runlib(String[] args){
 		//expande as flags
 		for(int i = 0; i < this.eflags.length; i++)
@@ -49,8 +48,8 @@ public class Runlib{
 		}
 		//se não estiver usando crossword
 		else{
-			//executa com 2 threads
-			if(run.f.hasFlag('m') && run.f.hasFlag('i')){
+			//executa com threads
+			if(run.f.hasFlag('t') && run.f.hasFlag('i')){
 				run.output = run.forMult(run.params[0]);
 			}
 			//se entrada for arquivo
@@ -90,30 +89,28 @@ public class Runlib{
 		this.c.setInputAsArray(inText.toArray(new String[inText.size()]));
 		return this.forCrosswrd();
 	}
-	//configura multithread
-	private ArrayList<String> forMult(String loadNome){
-		this.m = new ConcurrentGSS(this.pBarSize);
-		ArrayList<String> outPart  = new ArrayList<String>(); 
-		ArrayList<String> textPart = 
-			this.m.prepare(this.f,this.a.loadFile(loadNome));
-		Thread concg = new Thread(this.m);
-		concg.start();
-		outPart = this.useClasses(textPart);
-		while(!this.m.isFinished()){
-			try{
-				Thread.sleep(300);
-			} catch (InterruptedException E){
-				System.err.println("Fatal error!");
-				E.printStackTrace(System.out);
-				System.exit(0);
-			}
-		}
-		System.out.println();
-		return this.m.joinOutput(outPart);
-	}
 
 
 	//execução
+	//executa com multithread
+	private ArrayList<String> forMult(String loadNome){
+		ConcurrentGSS THD = new ConcurrentGSS(
+		this.a.loadFile(loadNome),
+		this.f,
+		new Lastint(this.params).getInt(),
+		this.pBarSize
+		);
+		Thread concg = new Thread(THD);
+		concg.start();
+		while(!THD.isFinished()){
+			try{
+				Thread.sleep(300);
+			} catch (InterruptedException E){
+				E.printStackTrace(System.out);
+			}
+		}
+		return THD.getOutput();
+	}
 	//uso das classes G2P, Syllabificator e StressVowel
 	private ArrayList<String> useClasses(ArrayList<String> inText){
 		ArrayList<String> outText = new ArrayList<String>();
@@ -145,11 +142,11 @@ public class Runlib{
 				saida += this.v.findStress(palavra);
 			outText.add(palavra + "\t" + saida.trim());
 			if(this.f.hasFlag('p')){
-				System.out.print("Thread 0 "+
+				System.out.print(
 						new Progress().getBar(this.pBarSize,i,inText.size()));
 			}
 		}
-		if(!this.f.hasFlag('m'))System.out.println();
+		if(this.f.hasFlag('p')) System.out.println();
 		return outText;
 	}
 	//uso do crossword
@@ -187,6 +184,9 @@ public class Runlib{
 	}
 
 
+
+
+
 	//erro e ajuda
 	//valida o uso das flags
 	private void validateFlagUsage(int argLen){
@@ -201,6 +201,14 @@ public class Runlib{
 		//mensagem de ajuda para desenvolvedores
 		if(this.f.hasFlag('h')){
 			this.showUsageMessage(1);
+		}
+		//erro: args insuficientes para multithread e saída
+		if(this.f.hasFlag('t') && this.f.hasFlag('o') && argLen < 3){
+			this.showUsageMessage(5);
+		}
+		//erro: args insuficientes para multithread
+		else if(this.f.hasFlag('t') && argLen < 2){
+			this.showUsageMessage(5);
 		}
 		//erro: sem nome de arquivo de saída
 		if(this.f.hasFlag('o') && argLen < 2){
@@ -261,8 +269,20 @@ public class Runlib{
 				break;
 			case 4:
 				//erro: nenhuma flag essencial usada
-				System.err.println("Nenhuma flag essencial usada.");
+				System.err.println("Erro: Nenhuma flag essencial usada.");
 				break;
+			case 5:
+				//erro: args insuficientes no uso de multithread
+				System.err.println(
+				"Erro: Faltando entrada, saída, ou quantidade de threads."
+				);
+				break;
+			case 6:
+				//erro: ultimo arg não foi quantidade de threads
+				System.err.println(
+				"Quando usando threads, último argumento deve ser número "+
+				"inteiro maior que 0."
+				);
 			default:
 				//mensagem padrão (curta)
 				break;

@@ -15,33 +15,36 @@ java -jar falalib.jar
 Caso nenhuma instrução seja dada, uma mensagem de ajuda é exibida.
 
 ```
-Usage 1: java -jar falalib.jar <PALAVRA>         -{v|s|g}
-Usage 2: java -jar falalib.jar <PALAVRA> <SAIDA> -o{v|s|g}
-Usage 3: java -jar falalib.jar <ENTRADA>         -i{v|s|g}
-Usage 4: java -jar falalib.jar <ENTRADA> <SAIDA> -io{v|s|g}
-Usage 5: java -jar falalib.jar <FRASE>           -c{C}
-Usage 6: java -jar falalib.jar <FRASE>   <SAIDA> -oc{C}
-Usage 7: java -jar falalib.jar <ENTRADA>         -ic{C}
-Usage 8: java -jar falalib.jar <ENTRADA> <SAIDA> -ioc{C}
+Usage  1: java -jar falalib.jar <PALAVRA>                  -{v|s|g}
+Usage  2: java -jar falalib.jar <PALAVRA> <SAIDA>          -o{v|s|g}
+Usage  3: java -jar falalib.jar <ENTRADA>                  -i{v|s|g}
+Usage  4: java -jar falalib.jar <ENTRADA> <SAIDA>          -io{v|s|g}
+Usage  5: java -jar falalib.jar <FRASE>                    -c{C}
+Usage  6: java -jar falalib.jar <FRASE>   <SAIDA>          -oc{C}
+Usage  7: java -jar falalib.jar <ENTRADA>                  -ic{C}
+Usage  8: java -jar falalib.jar <ENTRADA> <SAIDA>          -ioc{C}
+Usage  9: java -jar falalib.jar <ENTRADA> <NUMERO>         -im{v|s|g}
+Usage 10: java -jar falalib.jar <ENTRADA> <SAIDA> <NUMERO> -iom{v|s|g}
 
   <PALAVRA>: palavra do Português Brasileiro em caixa baixa
   <SAIDA>:   nome para o arquivo destino contendo o resultado do processamento
   <ENTRADA>: nome do arquivo de entrada, deve conter uma palavra por linha
   <FRASE>:   frase entre aspas, por exemplo: "a casa era amarela"
+  <NUMERO>:  número inteiro maior que 0
 
 Lista de flags:
--i  --input       (caso entrada seja arquivo)
--o  --output      (caso saída seja arquivo)
--c  --cross       (caso crossword deva ser usado)
--C  --vcross      (caso a saída do crossword deva ser detalhada)
--a  --ascii       (caso a saída deva conter apenas caracteres ascii)
--v  --vowel       (para usar identificador de vogal tônica)
--s  --syllab      (para usar separador silábico)
--g  --g2p         (para usar o conversor grafema fonema)
--G  --safeg2p     (para filtrar os caracteres não reconhecidos pelo g2p)
--h  --help        (para exibir ajuda para desenvolvedores)
--p  --progress    (mostra uma barra de progresso)
--m  --multithread (função multithread experimental para uso com -i{g|s|v})
+-i  --input    (caso entrada seja arquivo)
+-o  --output   (caso saída seja arquivo)
+-c  --cross    (caso crossword deva ser usado)
+-C  --vcross   (caso a saída do crossword deva ser detalhada)
+-a  --ascii    (caso a saída deva conter apenas caracteres ascii)
+-v  --vowel    (para usar identificador de vogal tônica)
+-s  --syllab   (para usar separador silábico)
+-g  --g2p      (para usar o conversor grafema fonema)
+-G  --safeg2p  (para filtrar os caracteres não reconhecidos pelo g2p)
+-h  --help     (para exibir ajuda para desenvolvedores)
+-p  --progress (mostra uma barra de progresso)
+-t  --threads  (função multithread, para uso com -i{g|s|v})
 ```
 
 A compilação do arquivo `Runlib.java` não é obrigatória para utilizar as
