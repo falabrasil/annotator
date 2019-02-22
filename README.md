@@ -23,8 +23,8 @@ Usage  5: java -jar falalib.jar <FRASE>                    -c{C}
 Usage  6: java -jar falalib.jar <FRASE>   <SAIDA>          -oc{C}
 Usage  7: java -jar falalib.jar <ENTRADA>                  -ic{C}
 Usage  8: java -jar falalib.jar <ENTRADA> <SAIDA>          -ioc{C}
-Usage  9: java -jar falalib.jar <ENTRADA> <NUMERO>         -im{v|s|g}
-Usage 10: java -jar falalib.jar <ENTRADA> <SAIDA> <NUMERO> -iom{v|s|g}
+Usage  9: java -jar falalib.jar <ENTRADA> <NUMERO>         -it{v|s|g}
+Usage 10: java -jar falalib.jar <ENTRADA> <SAIDA> <NUMERO> -iot{v|s|g}
 
   <PALAVRA>: palavra do Português Brasileiro em caixa baixa
   <SAIDA>:   nome para o arquivo destino contendo o resultado do processamento
