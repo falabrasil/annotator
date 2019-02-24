@@ -8,11 +8,11 @@ sudo apt-get install openjdk-8-jdk
 sudo apt-get install openjdk-8-jre
 ```
 
-O jar pode ser executado com:
+O jar pode ser executado pela linha de comando (terminal) com:
 ```
 java -jar falalib.jar
 ```
-Caso nenhuma instrução seja dada, uma mensagem de ajuda é exibida.
+Caso nenhuma instrução seja dada, uma mensagem de ajuda é exibida:
 
 ```
 Usage  1: java -jar falalib.jar <PALAVRA>                  -{v|s|g}
@@ -48,14 +48,13 @@ Lista de flags:
 ```
 
 A compilação do arquivo `Runlib.java` não é obrigatória para utilizar as
-funcionalidades biblioteca de utilitários do FalaBrasil
-
-Compilação do arquivo `Runlib.java`, presente no diretório `fala-libs/`:   
+funcionalidades biblioteca de utilitários do FalaBrasil, porém pode ser
+utilizada como uma API. A compilação do arquivo `Runlib.java` é dada por:     
 ```
 javac -cp ".:falalib.jar" Runlib.java
 ```
 
-Execução do arquivo `Runlib`, presente no diretório `fala-libs/`:   
+Já a execução do arquivo `Runlib`:     
 ```
 java  -cp ".:falalib.jar" Runlib
 ```
