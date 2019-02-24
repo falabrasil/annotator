@@ -3,13 +3,13 @@
 ## Conversor Grafema-Fonema (G2P)
 Compilação feita em versão `javac 1.8.0_162`.    
 Instalação de dependências no Ubuntu/Debian:   
-```
+```bash
 sudo apt-get install openjdk-8-jdk
 sudo apt-get install openjdk-8-jre
 ```
 
-O jar pode ser executado pela linha de comando (terminal) com:
-```
+O jar pode ser executado pela linha de comando (terminal) com:      
+```bash
 java -jar falalib.jar
 ```
 Caso nenhuma instrução seja dada, uma mensagem de ajuda é exibida:
@@ -50,12 +50,12 @@ Lista de flags:
 A compilação do arquivo `Runlib.java` não é obrigatória para utilizar as
 funcionalidades biblioteca de utilitários do FalaBrasil, porém pode ser
 utilizada como uma API. A compilação do arquivo `Runlib.java` é dada por:     
-```
+```bash
 javac -cp ".:falalib.jar" Runlib.java
 ```
 
 Já a execução do arquivo `Runlib`:     
-```
+```bash
 java  -cp ".:falalib.jar" Runlib
 ```
 
