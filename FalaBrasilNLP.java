@@ -8,7 +8,8 @@ import ufpa.falabrasil.Syllabificator;
 import ufpa.falabrasil.StressVowel;
 import ufpa.falabrasil.Cross;
 import ufpa.util.*;
-public class Runlib{
+
+public class FalaBrasilNLP{
 	private final char[] pflags = {'t','p','G','i','o','c','a','v','s','h','g',
 									'C'};
 	private final String[] eflags = {
@@ -182,10 +183,6 @@ public class Runlib{
 		}
 		return outText;
 	}
-
-
-
-
 
 	//erro e ajuda
 	//valida o uso das flags
