@@ -1,6 +1,5 @@
-# NLP: Natural Language Processing
+# NLP: Processamento de Linguagem Natural
 
-## Conversor Grafema-Fonema (G2P)
 Compilação feita em versão `javac 1.8.0_162`.    
 Instalação de dependências no Ubuntu/Debian:   
 ```bash
