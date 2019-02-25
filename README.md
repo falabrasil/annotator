@@ -44,6 +44,7 @@ Lista de flags:
 -h  --help     (para exibir ajuda para desenvolvedores)
 -p  --progress (mostra uma barra de progresso)
 -t  --threads  (função multithread, para uso com -i{g|s|v})
+-e  --encoding (para usuário selecionar codificação do arquivo de entrada)
 ```
 
 A compilação do arquivo `FalaBrasilNLP.java` não é obrigatória para utilizar as

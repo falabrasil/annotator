@@ -8,13 +8,12 @@ import ufpa.falabrasil.Syllabificator;
 import ufpa.falabrasil.StressVowel;
 import ufpa.falabrasil.Cross;
 import ufpa.util.*;
-
 public class FalaBrasilNLP{
 	private final char[] pflags = {'t','p','G','i','o','c','a','v','s','h','g',
-									'C'};
+									'C','e'};
 	private final String[] eflags = {
 		"threads","progress","safeg2p","input","output","cross","ascii","vowel",
-									"syllab","help","g2p","vcross"};
+									"syllab","help","g2p","vcross","encoding"};
 	private String[] params;
 	private ArrayList<String> output;
 	private GraphemeToPhoneme g = new GraphemeToPhoneme();
@@ -24,7 +23,7 @@ public class FalaBrasilNLP{
 	private Flags             f = new Flags(pflags);
 	private Filehandler       a = new Filehandler();
 	private int        pBarSize = 50;
-	private Runlib(String[] args){
+	private FalaBrasilNLP(String[] args){
 		//expande as flags
 		for(int i = 0; i < this.eflags.length; i++)
 			this.f.expandFlag(this.pflags[i], this.eflags[i]);
@@ -39,7 +38,7 @@ public class FalaBrasilNLP{
 
 
 	public static void main(String[] args){
-		Runlib run = new Runlib(args);
+		FalaBrasilNLP run = new FalaBrasilNLP(args);
 		//se estiver usando crossword
 		if(run.f.hasFlag('c')){
 			//se entrada for arquivo
@@ -76,7 +75,11 @@ public class FalaBrasilNLP{
 	}
 	//caso entrada seja arquivo
 	private ArrayList<String> forFile(String loadNome){
-		ArrayList<String> inText = this.a.loadFile(loadNome);
+		ArrayList<String> inText;
+		if(this.f.hasFlag('e'))
+			inText = this.a.loadEncFile(loadNome);
+		else
+			inText = this.a.loadFile(loadNome);
 		return this.useClasses(inText);
 	}
 	//configura crossword para texto
@@ -86,7 +89,11 @@ public class FalaBrasilNLP{
 	}
 	//configura crossword para arquivo
 	private ArrayList<String> forCrosswrdFile(String loadNome){
-		ArrayList<String> inText = this.a.loadFile(loadNome);
+		ArrayList<String> inText;
+		if(this.f.hasFlag('e'))
+			inText = this.a.loadEncFile(loadNome);
+		else
+			inText = this.a.loadFile(loadNome);
 		this.c.setInputAsArray(inText.toArray(new String[inText.size()]));
 		return this.forCrosswrd();
 	}
@@ -95,11 +102,16 @@ public class FalaBrasilNLP{
 	//execução
 	//executa com multithread
 	private ArrayList<String> forMult(String loadNome){
+		ArrayList<String> inText;
+		if(this.f.hasFlag('e'))
+			inText = this.a.loadEncFile(loadNome);
+		else
+			inText = this.a.loadFile(loadNome);
 		ConcurrentGSS THD = new ConcurrentGSS(
-		this.a.loadFile(loadNome),
-		this.f,
-		new Lastint(this.params).getInt(),
-		this.pBarSize
+			inText,
+			this.f,
+			new Lastint(this.params).getInt(),
+			this.pBarSize
 		);
 		Thread concg = new Thread(THD);
 		concg.start();
@@ -183,6 +195,10 @@ public class FalaBrasilNLP{
 		}
 		return outText;
 	}
+
+
+
+
 
 	//erro e ajuda
 	//valida o uso das flags
