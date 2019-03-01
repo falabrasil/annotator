@@ -9,13 +9,12 @@ import ufpa.falabrasil.StressVowel;
 import ufpa.falabrasil.Cross;
 import ufpa.util.*;
 public class FalaBrasilNLP{
-	private final char[] pflags = {'t','p','G','i','o','c','a','v','s','h','g',
+	private final char[] pflags = {'t','p','i','o','c','a','v','s','h','g',
 									'C','e'};
 	private final String[] eflags = {
-		"threads","progress","safeg2p","input","output","cross","ascii","vowel",
+		"threads","progress","input","output","cross","ascii","vowel",
 									"syllab","help","g2p","vcross","encoding"};
 	private String[] params;
-	private ArrayList<String> output;
 	private GraphemeToPhoneme g = new GraphemeToPhoneme();
 	private Syllabificator    s = new Syllabificator();
 	private StressVowel       v = new StressVowel();
@@ -31,37 +30,38 @@ public class FalaBrasilNLP{
 		this.params = this.f.setupFlags(args);
 		this.validateFlagUsage(this.params.length);
 		//configura os parâmetros do crossword
-		this.c.setG2PFilter(this.f.hasFlag('G'));
 		this.c.setASCII(this.f.hasFlag('a'));
-		this.c.setPBar(this.f.hasFlag('p'),pBarSize);
+		this.c.setVerbosis(this.f.hasFlag('p'));
+		if(this.f.hasFlag('t'))
+			this.c.setThreads(new Lastint(this.params).getInt());
 	}
 
 
 	public static void main(String[] args){
 		FalaBrasilNLP run = new FalaBrasilNLP(args);
+		ArrayList<String> output;
 		//se estiver usando crossword
 		if(run.f.hasFlag('c')){
 			//se entrada for arquivo
-			if(run.f.hasFlag('i')) run.output = run.forCrosswrdFile(run.params[0]);
+			if(run.f.hasFlag('i')) output = run.forCrosswrdFile(run.params[0]);
 			//se entrada for frase
-			else run.output = run.forCrosswrdText(run.params[0]);
+			else output = run.forCrosswrdText(run.params[0]);
 		}
 		//se não estiver usando crossword
 		else{
 			//executa com threads
-			if(run.f.hasFlag('t') && run.f.hasFlag('i')){
-				run.output = run.forMult(run.params[0]);
-			}
+			if(run.f.hasFlag('t') && run.f.hasFlag('i'))
+				output = run.forMult(run.params[0]);
 			//se entrada for arquivo
-			else if(run.f.hasFlag('i')) run.output = run.forFile(run.params[0]);
+			else if(run.f.hasFlag('i')) output = run.forFile(run.params[0]);
 			//se entrada for palavra
-			else run.output = run.forWord(run.params[0]);
+			else output = run.forWord(run.params[0]);
 		}
 		//se saída for para arquivo
-		if(run.f.hasFlag('o')) run.a.saveFile(run.params[1], run.output);
+		if(run.f.hasFlag('o')) run.a.saveFile(run.params[1], output);
 		//se saída for para System.out
-		else for(int i = 0; i < run.output.size(); i++)
-				System.out.println(run.output.get(i));
+		else for(int i = 0; i < output.size(); i++)
+				System.out.println(output.get(i));
 		System.exit(0);
 	}
 
@@ -119,7 +119,7 @@ public class FalaBrasilNLP{
 			try{
 				Thread.sleep(300);
 			} catch (InterruptedException E){
-				E.printStackTrace(System.out);
+				E.printStackTrace(System.err);
 			}
 		}
 		return THD.getOutput();
@@ -132,20 +132,12 @@ public class FalaBrasilNLP{
 			String saida = "";
 			//se saída do g2p deve conter apenas caracteres ASCII
 			if(this.f.hasFlag('g') && this.f.hasFlag('a')){
-				if(this.f.hasFlag('G'))
-					//g2p com filtro e saída ascii
-					saida += this.g.g2pSafeLA(palavra)+"\t";
-				else
-					//g2p com saída ascii
-					saida += this.g.g2pLA(palavra)+"\t";
+				//g2p com saída ascii
+				saida += this.g.g2pLA(palavra)+"\t";
 			}
 			else if(this.f.hasFlag('g')){
-				if(this.f.hasFlag('G'))
-					//g2p com filtro
-					saida += this.g.g2pSafe(palavra)+"\t";
-				else
-					//somente g2p
-					saida += this.g.g2p(palavra)+"\t";
+				//somente g2p
+				saida += this.g.g2p(palavra)+"\t";
 			}
 			if(this.f.hasFlag('s'))
 				//separador silábico

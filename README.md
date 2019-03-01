@@ -22,8 +22,8 @@ Usage  5: java -jar fb_nlplib.jar <FRASE>                    -c{C}
 Usage  6: java -jar fb_nlplib.jar <FRASE>   <SAIDA>          -oc{C}
 Usage  7: java -jar fb_nlplib.jar <ENTRADA>                  -ic{C}
 Usage  8: java -jar fb_nlplib.jar <ENTRADA> <SAIDA>          -ioc{C}
-Usage  9: java -jar fb_nlplib.jar <ENTRADA> <NUMERO>         -it{v|s|g}
-Usage 10: java -jar fb_nlplib.jar <ENTRADA> <SAIDA> <NUMERO> -iot{v|s|g}
+Usage  9: java -jar fb_nlplib.jar <ENTRADA> <NUMERO>         -it{v|s|g}{c}{C}
+Usage 10: java -jar fb_nlplib.jar <ENTRADA> <SAIDA> <NUMERO> -iot{v|s|g}{c}{C}
 
   <PALAVRA>: palavra do Português Brasileiro em caixa baixa
   <SAIDA>:   nome para o arquivo destino contendo o resultado do processamento
@@ -40,11 +40,10 @@ Lista de flags:
 -v  --vowel    (para usar identificador de vogal tônica)
 -s  --syllab   (para usar separador silábico)
 -g  --g2p      (para usar o conversor grafema fonema)
--G  --safeg2p  (para filtrar os caracteres não reconhecidos pelo g2p)
--h  --help     (para exibir ajuda para desenvolvedores)
 -p  --progress (mostra uma barra de progresso)
 -t  --threads  (função multithread, para uso com -i{g|s|v})
 -e  --encoding (para usuário selecionar codificação do arquivo de entrada)
+-h  --help     (para exibir ajuda para desenvolvedores)
 ```
 
 A compilação do arquivo `FalaBrasilNLP.java` não é obrigatória para utilizar as
