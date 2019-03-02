@@ -1,4 +1,8 @@
-# NLP: Processamento de Linguagem Natural
+# NLP: Gerador de Ferramentas para Processamento de Linguagem Natural
+
+A ferramenta NLP disponibilizada pelo Grupo FalaBrasil conta atualmente com os
+módulos de conversão grafema-fonema (G2P em ambas modalidades *internal-word* e
+*cross-word*), separação silábica e identificador de vogal tônica.
 
 Compilação feita em versão `javac 1.8.0_162`.    
 Instalação de dependências no Ubuntu/Debian:   
