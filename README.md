@@ -44,6 +44,7 @@ Lista de flags:
 -v  --vowel    (para usar identificador de vogal tônica)
 -s  --syllab   (para usar separador silábico)
 -g  --g2p      (para usar o conversor grafema fonema)
+-G  --g2p-s    (para retornar fonemas silabicamente separados)
 -p  --progress (mostra uma barra de progresso)
 -t  --threads  (função multithread, para uso com -i{g|s|v})
 -e  --encoding (para usuário selecionar codificação do arquivo de entrada)
