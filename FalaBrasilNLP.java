@@ -7,17 +7,19 @@ import ufpa.falabrasil.GraphemeToPhoneme;
 import ufpa.falabrasil.Syllabificator;
 import ufpa.falabrasil.StressVowel;
 import ufpa.falabrasil.Cross;
+import ufpa.falabrasil.TextTool;
 import ufpa.util.*;
 public class FalaBrasilNLP{
-	private final char[] pflags = {'t','p','i','o','c','a','v','s','h','g',
+	private final char[] pflags = {'G','t','p','i','o','c','a','v','s','h','g',
 									'C','e'};
 	private final String[] eflags = {
-		"threads","progress","input","output","cross","ascii","vowel",
-									"syllab","help","g2p","vcross","encoding"};
+		"g2p-s","threads","progress","input","output",
+		"cross","ascii","vowel","syllab","help","g2p","vcross","encoding"};
 	private String[] params;
 	private GraphemeToPhoneme g = new GraphemeToPhoneme();
 	private Syllabificator    s = new Syllabificator();
 	private StressVowel       v = new StressVowel();
+	private TextTool          t = new TextTool();
 	private Cross             c = new Cross();
 	private Flags             f = new Flags(pflags);
 	private Filehandler       a = new Filehandler();
@@ -144,7 +146,10 @@ public class FalaBrasilNLP{
 				saida += this.s.syllabs(palavra)+"\t";
 			if(this.f.hasFlag('v'))
 				//vogal tônica
-				saida += this.v.findStress(palavra);
+				saida += this.v.findStress(palavra)+"\t";
+			if(this.f.hasFlag('G'))
+				//g2p separado
+				saida += this.t.separaG2P(palavra);
 			outText.add(palavra + "\t" + saida.trim());
 			if(this.f.hasFlag('p')){
 				System.out.print(
@@ -221,7 +226,9 @@ public class FalaBrasilNLP{
 		}
 		//erro: nenhuma flag essencial {c|v|s|g} foi usada
 		if(!(this.f.hasFlag('c') || this.f.hasFlag('v') || 
-			 this.f.hasFlag('s') || this.f.hasFlag('g')))
+			 this.f.hasFlag('s') || this.f.hasFlag('g') ||
+			 this.f.hasFlag('G')
+		))
 		{
 			this.showUsageMessage(4);
 		}
