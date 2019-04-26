@@ -28,7 +28,6 @@ Usage  7: java -jar fb_nlplib.jar <ENTRADA>                  -ic{C}
 Usage  8: java -jar fb_nlplib.jar <ENTRADA> <SAIDA>          -ioc{C}
 Usage  9: java -jar fb_nlplib.jar <ENTRADA> <NUMERO>         -it{v|s|g|G}{c}{C}
 Usage 10: java -jar fb_nlplib.jar <ENTRADA> <SAIDA> <NUMERO> -iot{v|s|g|G}{c}{C}
-Usage 11: java -jar fb_nlplib.jar -P
 
   <PALAVRA>: palavra do Português Brasileiro em caixa baixa
   <SAIDA>:   nome para o arquivo destino contendo o resultado do processamento
@@ -46,7 +45,6 @@ Lista de flags:
 -s  --syllab   (para usar separador silábico)
 -g  --g2p      (para usar o conversor grafema fonema)
 -G  --g2p-s    (para retornar fonemas silabicamente separados)
--P  --python   (inicia o GatewayServer do py4j)
 -p  --progress (mostra uma barra de progresso)
 -t  --threads  (função multithread, para uso com -i{g|s|v})
 -e  --encoding (para usuário selecionar codificação do arquivo de entrada)
