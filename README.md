@@ -63,10 +63,11 @@ Já a execução do arquivo `FalaBrasilNLP`:
 java  -cp ".:fb_nlplib.jar" FalaBrasilNLP
 ```
 
-Caso a localização da lib seja alterada, para compilação do `FalaBrasilNLP.java`, 
-altere o _classpath_ de `".:fb_nlplib.jar"` para `
-".:/nova/localização/do/fb_nlplib.jar"`.
+Caso a localização da lib seja alterada, para compilação do
+`FalaBrasilNLP.java`, altere o _classpath_ de `".:fb_nlplib.jar"` para
+`".:/nova/localização/do/fb_nlplib.jar"`.
 
 __Grupo FalaBrasil (2019)__    
 __Universidade Federal do Pará__    
 Daniel Santana - daniel.santana.1661@gmail.com
+Cassio Batista - cassio.batista.13@gmail.com
