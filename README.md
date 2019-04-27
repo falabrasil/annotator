@@ -4,6 +4,19 @@ A ferramenta NLP disponibilizada pelo Grupo FalaBrasil conta atualmente com os
 módulos de conversão grafema-fonema (G2P em ambas modalidades *internal-word* e
 *cross-word*), separação silábica e identificador de vogal tônica.
 
+## Python
+Instalação de dependências no Ubuntu/Debian:   
+```bash
+sudo apt-get install python3 python3-pip
+sudo -H pip3 install cython pyjnius
+```
+
+Execução feita em versão `python 3.5.3`.    
+```bash
+python3 FalaBrasilNLP.py /path/to/fb_nlplib.jar <PALAVRA>
+```
+
+## Java
 Compilação feita em versão `javac 1.8.0_162`.    
 Instalação de dependências no Ubuntu/Debian:   
 ```bash
