@@ -9,8 +9,6 @@ Instalação de dependências no Ubuntu/Debian:
 ```bash
 sudo apt-get install openjdk-8-jdk
 sudo apt-get install openjdk-8-jre
-
-sudo -H pip3 install py4j --upgrade
 ```
 
 O jar pode ser executado pela linha de comando (terminal) com:      
