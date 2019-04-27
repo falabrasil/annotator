@@ -86,5 +86,5 @@ Caso a localização da lib seja alterada, para compilação do
 
 __Grupo FalaBrasil (2019)__    
 __Universidade Federal do Pará__    
-Daniel Santana - daniel.santana.1661@gmail.com
+Daniel Santana - daniel.santana.1661@gmail.com    
 Cassio Batista - cassio.batista.13@gmail.com
