@@ -5,6 +5,10 @@ módulos de conversão grafema-fonema (G2P em ambas modalidades *internal-word* 
 *cross-word*), separação silábica e identificador de vogal tônica.
 
 ## Python
+A ferramenta NLP, originalmente escrita em Java, foi recentemente utilizada em
+Python graças ao módulo [PyJNIus](https://github.com/kivy/pyjnius), o qual
+permite carregar métodos Java em Python
+
 Instalação de dependências no Ubuntu/Debian:   
 ```bash
 sudo apt-get install python3 python3-pip
