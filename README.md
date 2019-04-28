@@ -4,7 +4,7 @@ A ferramenta NLP disponibilizada pelo Grupo FalaBrasil conta atualmente com os
 módulos de conversão grafema-fonema (G2P em ambas modalidades *internal-word* e
 *cross-word*), separação silábica e identificador de vogal tônica.
 
-## Python
+## Python :snake:
 A ferramenta NLP, originalmente escrita em Java, foi recentemente utilizada em
 Python graças ao módulo [PyJNIus](https://github.com/kivy/pyjnius), o qual
 permite carregar métodos Java em Python
@@ -20,7 +20,7 @@ Execução feita em versão `python 3.5.3`.
 python3 FalaBrasilNLP.py /path/to/fb_nlplib.jar <PALAVRA>
 ```
 
-## Java
+## Java :coffee:
 Compilação feita em versão `javac 1.8.0_162`.    
 Instalação de dependências no Ubuntu/Debian:   
 ```bash
