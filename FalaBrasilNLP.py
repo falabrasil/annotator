@@ -13,16 +13,16 @@ class FalaBrasilNLP:
 	def __init__(self):
 		self.jClass = autoclass('ufpa.util.PyUse')()
 
-	def g2p(self, palavra):
+	def fb_getg2p(self, palavra):
 		return self.jClass.useG2P(palavra)
 
-	def syllabs(self, palavra):
+	def fb_getsyl(self, palavra):
 		return self.jClass.useSyll(palavra)
 
-	def findStress(self, palavra):
+	def fb_get_stressindex(self, palavra):
 		return self.jClass.useSVow(palavra)
 
-	def separaG2P(self, palavra):
+	def fb_get_g2psyl(self, palavra):
 		return self.jClass.useSG2P(palavra)
 
 def fb_print_asciilogo():
@@ -47,7 +47,7 @@ if __name__ == '__main__':
 	fb_nlp = FalaBrasilNLP()
 
 	print('DEMO: "%s"' % sys.argv[2])
-	print('  g2p:      ', fb_nlp.g2p(sys.argv[2]))
-	print('  syll:     ', fb_nlp.syllabs(sys.argv[2]))
-	print('  stress:   ', fb_nlp.findStress(sys.argv[2]))
-	print('  syl pohns:', fb_nlp.separaG2P(sys.argv[2]))
+	print('  g2p:      ', fb_nlp.fb_getg2p(sys.argv[2]))
+	print('  syll:     ', fb_nlp.fb_getsyl(sys.argv[2]))
+	print('  stress:   ', fb_nlp.fb_get_stressindex(sys.argv[2]))
+	print('  syl pohns:', fb_nlp.fb_get_g2psyl(sys.argv[2]))
