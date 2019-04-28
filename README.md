@@ -4,22 +4,6 @@ A ferramenta NLP disponibilizada pelo Grupo FalaBrasil conta atualmente com os
 módulos de conversão grafema-fonema (G2P em ambas modalidades *internal-word* e
 *cross-word*), separação silábica e identificador de vogal tônica.
 
-## Python :dragon:
-A ferramenta NLP, originalmente escrita em Java, foi recentemente utilizada em
-Python graças ao módulo [PyJNIus](https://github.com/kivy/pyjnius), o qual
-permite carregar métodos Java em Python
-
-Instalação de dependências no Ubuntu/Debian:   
-```bash
-sudo apt-get install python3 python3-pip
-sudo -H pip3 install cython pyjnius
-```
-
-Execução feita em versão `python 3.5.3`.    
-```bash
-python3 FalaBrasilNLP.py /path/to/fb_nlplib.jar <PALAVRA>
-```
-
 ## Java :coffee:
 Compilação feita em versão `javac 1.8.0_162`.    
 Instalação de dependências no Ubuntu/Debian:   
@@ -83,6 +67,23 @@ java  -cp ".:fb_nlplib.jar" FalaBrasilNLP
 Caso a localização da lib seja alterada, para compilação do
 `FalaBrasilNLP.java`, altere o _classpath_ de `".:fb_nlplib.jar"` para
 `".:/nova/localização/do/fb_nlplib.jar"`.
+
+## Python :dragon:
+A ferramenta NLP, originalmente escrita em Java, foi recentemente utilizada em
+Python graças ao módulo [PyJNIus](https://github.com/kivy/pyjnius), o qual
+permite carregar métodos Java em Python.
+
+Instalação de dependências no Ubuntu/Debian:   
+```bash
+sudo apt-get install python3 python3-pip
+sudo -H pip3 install cython pyjnius
+```
+
+Execução feita em versão `python 3.5.3`.    
+```bash
+python3 FalaBrasilNLP.py /path/to/fb_nlplib.jar <PALAVRA>
+```
+
 
 __Grupo FalaBrasil (2019)__    
 __Universidade Federal do Pará__    
