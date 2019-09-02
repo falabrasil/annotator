@@ -84,8 +84,9 @@ Execução feita em versão `python 3.5.3`.
 python3 FalaBrasilNLP.py /path/to/fb_nlplib.jar <PALAVRA>
 ```
 
+[![FalaBrasil](doc/logo_fb_github_footer.png)](https://ufpafalabrasil.gitlab.io/ "Visite o site do Grupo FalaBrasil") [![UFPA](doc/logo_ufpa_github_footer.png)](https://portal.ufpa.br/ "Visite o site da UFPA")
 
-__Grupo FalaBrasil (2019)__    
-__Universidade Federal do Pará__    
+__Grupo FalaBrasil (2019)__ - https://ufpafalabrasil.gitlab.io/      
+__Universidade Federal do Pará (UFPA)__ - https://portal.ufpa.br/     
 Daniel Santana - daniel.santana.1661@gmail.com    
 Cassio Batista - cassio.batista.13@gmail.com
