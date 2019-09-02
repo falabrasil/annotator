@@ -89,4 +89,4 @@ python3 FalaBrasilNLP.py /path/to/fb_nlplib.jar <PALAVRA>
 __Grupo FalaBrasil (2019)__ - https://ufpafalabrasil.gitlab.io/      
 __Universidade Federal do Pará (UFPA)__ - https://portal.ufpa.br/     
 Daniel Santana - daniel.santana.1661@gmail.com    
-Cassio Batista - cassio.batista.13@gmail.com
+Cassio Batista - https://cassota.gitlab.io/
