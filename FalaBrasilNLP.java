@@ -10,32 +10,53 @@ import ufpa.falabrasil.Cross;
 import ufpa.falabrasil.TextTool;
 import ufpa.util.*;
 public class FalaBrasilNLP{
-	private final char[] pflags = {'G','t','p','i','o','c','a','v','s','h','g',
-									'C','e'};
+	private final char[] pflags = {
+		'G','t','p','i','o',
+		'c','a','v','s','h','g',
+		'C','e'};
 	private final String[] eflags = {
 		"g2p-s","threads","progress","input","output",
-		"cross","ascii","vowel","syllab","help","g2p","vcross","encoding"};
+		"cross","ascii","vowel","syllab","help","g2p",
+		"vcross","encoding"};
+	private final boolean[] aflags = {
+		false, true, false, true , true,
+		false, false, false, false, false, false,
+		false, true};
 	private String[] params;
 	private GraphemeToPhoneme g = new GraphemeToPhoneme();
 	private Syllabificator    s = new Syllabificator();
 	private StressVowel       v = new StressVowel();
 	private TextTool          t = new TextTool();
 	private Cross             c = new Cross();
-	private Flags             f = new Flags(pflags);
+	private Flags             f = new Flags();
 	private Filehandler       a = new Filehandler();
 	private int        pBarSize = 50;
+	private int         threadC;
 	private FalaBrasilNLP(String[] args){
-		//expande as flags
-		for(int i = 0; i < this.eflags.length; i++)
-			this.f.expandFlag(this.pflags[i], this.eflags[i]);
+		//cria as flags
+		for(int i = 0; i < this.pflags.length; i++)
+			this.f.addFlag(this.pflags[i], this.eflags[i], this.aflags[i]);
 		//configura e valida as flags usadas pelo usuário
-		this.params = this.f.setupFlags(args);
+		try {
+			this.f.parseArgs(args);
+			this.params = this.f.getOnlyArgs();
+		} catch(InvalidFlagException E) {
+			System.err.printf("Uso incorreto de parâmetros de execução:\n\n");
+			E.printStackTrace(System.err);
+			System.exit(-1);
+		}
 		this.validateFlagUsage(this.params.length);
 		//configura os parâmetros do crossword
 		this.c.setASCII(this.f.hasFlag('a'));
 		this.c.setVerbosis(this.f.hasFlag('p'));
-		if(this.f.hasFlag('t'))
-			this.c.setThreads(new Lastint(this.params).getInt());
+		if(this.f.hasFlag('t')) {
+			try {
+				this.threadC = Math.abs(Integer.parseInt(this.f.getFlagArg('t')));
+			} catch (NumberFormatException E) {
+				System.err.println("Quantidade de Threads deve ser número");
+			}
+			this.c.setThreads(this.threadC);
+		}
 	}
 
 
@@ -45,7 +66,7 @@ public class FalaBrasilNLP{
 		//se estiver usando crossword
 		if(run.f.hasFlag('c')){
 			//se entrada for arquivo
-			if(run.f.hasFlag('i')) output = run.forCrosswrdFile(run.params[0]);
+			if(run.f.hasFlag('i')) output = run.forCrosswrdFile(run.f.getFlagArg('i'));
 			//se entrada for frase
 			else output = run.forCrosswrdText(run.params[0]);
 		}
@@ -53,14 +74,17 @@ public class FalaBrasilNLP{
 		else{
 			//executa com threads
 			if(run.f.hasFlag('t') && run.f.hasFlag('i'))
-				output = run.forMult(run.params[0]);
+				output = run.forMult(run.f.getFlagArg('i'));
 			//se entrada for arquivo
-			else if(run.f.hasFlag('i')) output = run.forFile(run.params[0]);
+			else if(run.f.hasFlag('i')) output = run.forFile(run.f.getFlagArg('i'));
 			//se entrada for palavra
 			else output = run.forWord(run.params[0]);
 		}
 		//se saída for para arquivo
-		if(run.f.hasFlag('o')) run.a.saveFile(run.params[1], output);
+		if(run.f.hasFlag('o'))
+			try {
+				run.a.saveFile(run.f.getFlagArg('o'), output);
+			} catch(IOException E) { E.printStackTrace(System.err); }
 		//se saída for para System.out
 		else for(int i = 0; i < output.size(); i++)
 				System.out.println(output.get(i));
@@ -75,13 +99,29 @@ public class FalaBrasilNLP{
 		inText.add(palavra);
 		return this.useClasses(inText);
 	}
+	private ArrayList<String> getFileContent(String loadNome) {
+		ArrayList<String> inText = new ArrayList<>();
+		int opt = 0;
+		if(this.f.hasFlag('e')) {
+			opt = Integer.parseInt(this.f.getFlagArg('e'));
+			if (opt < 0 || opt > 5) {
+				opt = 0;
+				System.out.println("Opção de encoder inválida, padrão selecionado: 0");
+			}
+		}
+		try {
+			inText = this.a.loadFile(loadNome, opt);
+		} catch(IOException E) {
+			System.err.println("Erro ao carregar arquivo.");
+			E.printStackTrace(System.err);
+			System.exit(1);
+		}
+		return inText;
+	}
 	//caso entrada seja arquivo
 	private ArrayList<String> forFile(String loadNome){
 		ArrayList<String> inText;
-		if(this.f.hasFlag('e'))
-			inText = this.a.loadEncFile(loadNome);
-		else
-			inText = this.a.loadFile(loadNome);
+		inText = this.getFileContent(loadNome);
 		return this.useClasses(inText);
 	}
 	//configura crossword para texto
@@ -92,10 +132,7 @@ public class FalaBrasilNLP{
 	//configura crossword para arquivo
 	private ArrayList<String> forCrosswrdFile(String loadNome){
 		ArrayList<String> inText;
-		if(this.f.hasFlag('e'))
-			inText = this.a.loadEncFile(loadNome);
-		else
-			inText = this.a.loadFile(loadNome);
+		inText = this.getFileContent(loadNome);
 		this.c.setInputAsArray(inText.toArray(new String[inText.size()]));
 		return this.forCrosswrd();
 	}
@@ -105,14 +142,11 @@ public class FalaBrasilNLP{
 	//executa com multithread
 	private ArrayList<String> forMult(String loadNome){
 		ArrayList<String> inText;
-		if(this.f.hasFlag('e'))
-			inText = this.a.loadEncFile(loadNome);
-		else
-			inText = this.a.loadFile(loadNome);
+		inText = this.getFileContent(loadNome);
 		ConcurrentGSS THD = new ConcurrentGSS(
 			inText,
 			this.f,
-			new Lastint(this.params).getInt(),
+			this.threadC,
 			this.pBarSize
 		);
 		Thread concg = new Thread(THD);
@@ -193,10 +227,6 @@ public class FalaBrasilNLP{
 		return outText;
 	}
 
-
-
-
-
 	//erro e ajuda
 	//valida o uso das flags
 	private void validateFlagUsage(int argLen){
@@ -205,23 +235,7 @@ public class FalaBrasilNLP{
 			this.showUsageMessage(1);
 		}
 		//erro: nenhum dado de entrada
-		if(argLen == 0){
-			this.showUsageMessage(3);
-		}
-		//mensagem de ajuda para desenvolvedores
-		if(this.f.hasFlag('h')){
-			this.showUsageMessage(1);
-		}
-		//erro: args insuficientes para multithread e saída
-		if(this.f.hasFlag('t') && this.f.hasFlag('o') && argLen < 3){
-			this.showUsageMessage(5);
-		}
-		//erro: args insuficientes para multithread
-		else if(this.f.hasFlag('t') && argLen < 2){
-			this.showUsageMessage(5);
-		}
-		//erro: sem nome de arquivo de saída
-		if(this.f.hasFlag('o') && argLen < 2){
+		if(argLen == 0 && !this.f.hasFlag('i')){
 			this.showUsageMessage(2);
 		}
 		//erro: nenhuma flag essencial {c|v|s|g} foi usada
@@ -230,7 +244,7 @@ public class FalaBrasilNLP{
 			 this.f.hasFlag('G')
 		))
 		{
-			this.showUsageMessage(4);
+			this.showUsageMessage(3);
 		}
 		//aviso: {v|s|g} não interferem em -c
 		if(this.f.hasFlag('c') && (this.f.hasFlag('v') || 
@@ -272,29 +286,13 @@ public class FalaBrasilNLP{
 				System.out.println(message);
 				break;
 			case 2:
-				//erro: sem nome de arquivo de saída
-				System.err.println("Erro: Faltando nome de arquivo de saída.");
-				break;
-			case 3:
 				//erro: sem palavra ou nome de arquivo de entrada
 				System.err.println("Erro: Faltando dado de entrada.");
 				break;
-			case 4:
+			case 3:
 				//erro: nenhuma flag essencial usada
 				System.err.println("Erro: Nenhuma flag essencial usada.");
 				break;
-			case 5:
-				//erro: args insuficientes no uso de multithread
-				System.err.println(
-				"Erro: Faltando entrada, saída, ou quantidade de threads."
-				);
-				break;
-			case 6:
-				//erro: ultimo arg não foi quantidade de threads
-				System.err.println(
-				"Quando usando threads, último argumento deve ser número "+
-				"inteiro maior que 0."
-				);
 			default:
 				//mensagem padrão (curta)
 				break;

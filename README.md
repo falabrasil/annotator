@@ -19,16 +19,16 @@ java -jar fb_nlplib.jar
 Caso nenhuma instrução seja dada, uma mensagem de ajuda é exibida:
 
 ```
-Usage  1: java -jar fb_nlplib.jar <PALAVRA>                  -{v|s|g|G}
-Usage  2: java -jar fb_nlplib.jar <PALAVRA> <SAIDA>          -o{v|s|g|G}
-Usage  3: java -jar fb_nlplib.jar <ENTRADA>                  -i{v|s|g|G}
-Usage  4: java -jar fb_nlplib.jar <ENTRADA> <SAIDA>          -io{v|s|g|G}
-Usage  5: java -jar fb_nlplib.jar <FRASE>                    -c{C}
-Usage  6: java -jar fb_nlplib.jar <FRASE>   <SAIDA>          -oc{C}
-Usage  7: java -jar fb_nlplib.jar <ENTRADA>                  -ic{C}
-Usage  8: java -jar fb_nlplib.jar <ENTRADA> <SAIDA>          -ioc{C}
-Usage  9: java -jar fb_nlplib.jar <ENTRADA> <NUMERO>         -it{v|s|g|G}{c}{C}
-Usage 10: java -jar fb_nlplib.jar <ENTRADA> <SAIDA> <NUMERO> -iot{v|s|g|G}{c}{C}
+Usage  1: java -jar falalib.jar -{v|s|g}          <PALAVRA>
+Usage  2: java -jar falalib.jar -{v|s|g}          <PALAVRA> -o <SAIDA>
+Usage  3: java -jar falalib.jar -{v|s|g}       -i <ENTRADA>
+Usage  4: java -jar falalib.jar -{v|s|g}       -i <ENTRADA> -o <SAIDA>
+Usage  5: java -jar falalib.jar -c{C}             <FRASE>
+Usage  6: java -jar falalib.jar -c{C}             <FRASE>   -o <SAIDA>
+Usage  7: java -jar falalib.jar -c{C}          -i <ENTRADA>
+Usage  8: java -jar falalib.jar -c{C}          -i <ENTRADA> -o <SAIDA>
+Usage  9: java -jar falalib.jar -{v|s|g}{c}{C} -i <ENTRADA> -t <NUMERO>
+Usage 10: java -jar falalib.jar -{v|s|g}{c}{C} -i <ENTRADA> -o <SAIDA> -t <NUMERO>
 
   <PALAVRA>: palavra do Português Brasileiro em caixa baixa
   <SAIDA>:   nome para o arquivo destino contendo o resultado do processamento
