@@ -85,7 +85,7 @@ python3 FalaBrasilNLP.py /path/to/fb_nlplib.jar <PALAVRA>
 ```
 
 Caso ocorram erros de execução, certifique-se de que sua variável de ambiente 
-`JAVA\_HOME` aponta para o Java 8, e que a sua versão do PyJNIus é a mais recente.
+`JAVA_HOME` aponta para o Java 8, e que a sua versão do PyJNIus é a mais recente.
 
 [![FalaBrasil](doc/logo_fb_github_footer.png)](https://ufpafalabrasil.gitlab.io/ "Visite o site do Grupo FalaBrasil") [![UFPA](doc/logo_ufpa_github_footer.png)](https://portal.ufpa.br/ "Visite o site da UFPA")
 
