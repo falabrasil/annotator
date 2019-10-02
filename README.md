@@ -1,24 +1,23 @@
 # NLP: Gerador de Ferramentas para Processamento de Linguagem Natural
-
 A ferramenta NLP disponibilizada pelo Grupo FalaBrasil conta atualmente com os
 módulos de conversão grafema-fonema (G2P em ambas modalidades *internal-word* e
 *cross-word*), separação silábica e identificador de vogal tônica.
 
-## Java :coffee:
+# Java :coffee:
 Compilação feita em versão `javac 1.8.0_162`.    
 Instalação de dependências no Ubuntu/Debian:   
 ```bash
-sudo apt-get install openjdk-8-jdk
-sudo apt-get install openjdk-8-jre
+$ sudo apt-get install openjdk-8-jdk
+$ sudo apt-get install openjdk-8-jre
 ```
 
 O jar pode ser executado pela linha de comando (terminal) com:      
 ```bash
-java -jar fb_nlplib.jar
+$ java -jar fb_nlplib.jar
 ```
 Caso nenhuma instrução seja dada, uma mensagem de ajuda é exibida:
 
-```
+```text
 Usage  1: java -jar falalib.jar -{v|s|g}          <PALAVRA>
 Usage  2: java -jar falalib.jar -{v|s|g}          <PALAVRA> -o <SAIDA>
 Usage  3: java -jar falalib.jar -{v|s|g}       -i <ENTRADA>
@@ -56,36 +55,45 @@ A compilação do arquivo `FalaBrasilNLP.java` não é obrigatória para utiliza
 funcionalidades biblioteca de utilitários do FalaBrasil, porém pode ser
 utilizada como uma API. A compilação do arquivo `FalaBrasilNLP.java` é dada por:     
 ```bash
-javac -cp ".:fb_nlplib.jar" FalaBrasilNLP.java
+$ javac -cp ".:fb_nlplib.jar" FalaBrasilNLP.java
 ```
 
 Já a execução do arquivo `FalaBrasilNLP`:     
 ```bash
-java  -cp ".:fb_nlplib.jar" FalaBrasilNLP
+$ java  -cp ".:fb_nlplib.jar" FalaBrasilNLP
 ```
 
 Caso a localização da lib seja alterada, para compilação do
 `FalaBrasilNLP.java`, altere o _classpath_ de `".:fb_nlplib.jar"` para
 `".:/nova/localização/do/fb_nlplib.jar"`.
 
-## Python :dragon:
+# Python :dragon:
 A ferramenta NLP, originalmente escrita em Java, foi recentemente utilizada em
 Python graças ao módulo [PyJNIus](https://github.com/kivy/pyjnius), o qual
 permite carregar métodos Java em Python.
 
 Instalação de dependências no Ubuntu/Debian:   
 ```bash
-sudo apt-get install python3 python3-pip
-sudo -H pip3 install cython pyjnius
+$ sudo apt-get install python3 python3-pip
+$ sudo -H pip3 install cython jnius pyjnius --upgrade
 ```
 
 Execução feita em versão `python 3.5.3`.    
 ```bash
-python3 FalaBrasilNLP.py /path/to/fb_nlplib.jar <PALAVRA>
+$ python3 FalaBrasilNLP.py /path/to/fb_nlplib.jar <PALAVRA>
 ```
 
 Caso ocorram erros de execução, certifique-se de que sua variável de ambiente 
-`JAVA_HOME` aponta para o Java 8, e que a sua versão do PyJNIus é a mais recente.
+`JAVA_HOME` aponta para o Java 8 (ou exportada no `.bashrc` ou setada 
+diretamente via `os.environ` no script Python), e que a sua versão do PyJNIus é 
+a mais recente:
+
+```bash
+$ pip3 list | egrep -i 'jni|cython'
+Cython               0.29.13  
+jnius                1.1.0    
+pyjnius              1.2.0    
+```
 
 [![FalaBrasil](doc/logo_fb_github_footer.png)](https://ufpafalabrasil.gitlab.io/ "Visite o site do Grupo FalaBrasil") [![UFPA](doc/logo_ufpa_github_footer.png)](https://portal.ufpa.br/ "Visite o site da UFPA")
 
