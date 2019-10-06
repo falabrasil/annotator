@@ -2,11 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import os
+os.environ['JAVA_HOME'] = '/usr/lib/jvm/java-8-openjdk'
+os.environ['CLASSPATH'] = 'fb_nlplib.jar'
+
 import sys
-
-if len(sys.argv) == 3:
-	os.environ['CLASSPATH'] = sys.argv[1]
-
 from jnius import autoclass
 
 class FalaBrasilNLP:
@@ -39,15 +38,15 @@ def fb_print_asciilogo():
 	print('')
 
 if __name__ == '__main__':
-	if len(sys.argv) != 3:
+	if len(sys.argv) != 2:
 		fb_print_asciilogo()
-		print('Usage: {} /path/to/fb_nlplib.jar <PALAVRA>'.format(sys.argv[0]))
+		print('Usage: {} <PALAVRA>'.format(sys.argv[0]))
 		exit(1)
 
 	fb_nlp = FalaBrasilNLP()
 
-	print('DEMO: "%s"' % sys.argv[2])
-	print('  g2p:      ', fb_nlp.fb_getg2p(sys.argv[2]))
-	print('  syll:     ', fb_nlp.fb_getsyl(sys.argv[2]))
-	print('  stress:   ', fb_nlp.fb_get_stressindex(sys.argv[2]))
-	print('  syl pohns:', fb_nlp.fb_get_g2psyl(sys.argv[2]))
+	print('DEMO: "%s"' % sys.argv[1])
+	print('  g2p:      ', fb_nlp.fb_getg2p(sys.argv[1]))
+	print('  syll:     ', fb_nlp.fb_getsyl(sys.argv[1]))
+	print('  stress:   ', fb_nlp.fb_get_stressindex(sys.argv[1]))
+	print('  syl pohns:', fb_nlp.fb_get_g2psyl(sys.argv[1]))
