@@ -38,7 +38,7 @@ def fb_print_asciilogo():
 	print('')
 
 def fb_print_demo(nlp, word):
-	print('DEMO: "%s"' % sys.argv[2])
+	print('DEMO: "%s"' % word)
 	print('  g2p:      ', fb_nlp.fb_getg2p(word))
 	print('  syll:     ', fb_nlp.fb_getsyl(word))
 	print('  stress:   ', fb_nlp.fb_get_stressindex(word))
@@ -52,9 +52,9 @@ if __name__ == '__main__':
 
 	fb_nlp = FalaBrasilNLP()
 
-	fb_print_demo(fb_nlp, sys.argv[2])
+	fb_print_demo(fb_nlp, sys.argv[1])
 	print('')
 	
 	fb_nlp = FalaBrasilNLP(ascii=True)
 
-	fb_print_demo(fb_nlp, sys.argv[2])
+	fb_print_demo(fb_nlp, sys.argv[1])
