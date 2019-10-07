@@ -9,8 +9,8 @@ import sys
 from jnius import autoclass
 
 class FalaBrasilNLP:
-	def __init__(self):
-		self.jClass = autoclass('ufpa.util.PyUse')()
+	def __init__(self, ascii=False):
+		self.jClass = autoclass('ufpa.util.PyUse')(ascii)
 
 	def fb_getg2p(self, palavra):
 		return self.jClass.useG2P(palavra)
@@ -37,6 +37,13 @@ def fb_print_asciilogo():
 	print('                           \033[32m|____/|_|  \__,_|___/_|_|\033[91m \___/|_|   |_|  /_/   \_\       \033[0m')
 	print('')
 
+def fb_print_demo(nlp, word):
+	print('DEMO: "%s"' % sys.argv[2])
+	print('  g2p:      ', fb_nlp.fb_getg2p(word))
+	print('  syll:     ', fb_nlp.fb_getsyl(word))
+	print('  stress:   ', fb_nlp.fb_get_stressindex(word))
+	print('  syl pohns:', fb_nlp.fb_get_g2psyl(word))
+
 if __name__ == '__main__':
 	if len(sys.argv) != 2:
 		fb_print_asciilogo()
@@ -45,8 +52,9 @@ if __name__ == '__main__':
 
 	fb_nlp = FalaBrasilNLP()
 
-	print('DEMO: "%s"' % sys.argv[1])
-	print('  g2p:      ', fb_nlp.fb_getg2p(sys.argv[1]))
-	print('  syll:     ', fb_nlp.fb_getsyl(sys.argv[1]))
-	print('  stress:   ', fb_nlp.fb_get_stressindex(sys.argv[1]))
-	print('  syl pohns:', fb_nlp.fb_get_g2psyl(sys.argv[1]))
+	fb_print_demo(fb_nlp, sys.argv[2])
+	print('')
+	
+	fb_nlp = FalaBrasilNLP(ascii=True)
+
+	fb_print_demo(fb_nlp, sys.argv[2])
