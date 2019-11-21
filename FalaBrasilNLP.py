@@ -24,6 +24,9 @@ class FalaBrasilNLP:
 	def fb_get_g2psyl(self, palavra):
 		return self.jClass.useSG2P(palavra)
 
+	def fb_get_crossword(self, frase):
+		return self.jClass.useCross(frase)
+
 def fb_print_asciilogo():
 	print('\033[94m  ____                         \033[93m _____     _           \033[0m')
 	print('\033[94m / ___| _ __ _   _ _ __   ___  \033[93m|  ___|_ _| | __ _     \033[0m')
@@ -39,6 +42,9 @@ def fb_print_asciilogo():
 
 def fb_print_demo(nlp, word):
 	print('DEMO: "%s"' % word)
+	if " " in word:
+		print('  cross:    ', fb_nlp.fb_get_crossword(word))
+		return
 	print('  g2p:      ', fb_nlp.fb_getg2p(word))
 	print('  syll:     ', fb_nlp.fb_getsyl(word))
 	print('  stress:   ', fb_nlp.fb_get_stressindex(word))
@@ -54,7 +60,7 @@ if __name__ == '__main__':
 
 	fb_print_demo(fb_nlp, sys.argv[1])
 	print('')
-	
+
 	fb_nlp = FalaBrasilNLP(ascii=True)
 
 	fb_print_demo(fb_nlp, sys.argv[1])
