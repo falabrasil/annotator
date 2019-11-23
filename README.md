@@ -72,13 +72,35 @@ A ferramenta NLP, originalmente escrita em Java, foi recentemente utilizada em
 Python graças ao módulo [PyJNIus](https://github.com/kivy/pyjnius), o qual
 permite carregar métodos Java em Python.
 
-Instalação de dependências no Ubuntu/Debian:   
+## Instalação
+
+### Conda
+
+```bash
+$ conda create --name fb-nlp-gen --file req_conda.txt
+```
+
+ou
+
+```bash
+$ conda create --name fb-nlp-gen python=3.7
+$ conda activate fb-nlp-gen 
+$ conda install cython
+$ conda install -c conda-forge pyjnius
+$ conda install -c anaconda openjdk
+```
+
+### Ubuntu / Debian (apt-get + pip)
+
+Dependências:
+
 ```bash
 $ sudo apt-get install python3 python3-pip
 $ sudo -H pip3 install cython jnius pyjnius --upgrade
 ```
 
 Execução feita em versão `python 3.5.3`.    
+
 ```bash
 $ python3 FalaBrasilNLP.py /path/to/fb_nlplib.jar <PALAVRA>
 ```
