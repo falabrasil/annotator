@@ -67,7 +67,7 @@ Caso a localização da lib seja alterada, para compilação do
 `FalaBrasilNLP.java`, altere o _classpath_ de `".:fb_nlplib.jar"` para
 `".:/nova/localização/do/fb_nlplib.jar"`.
 
-# Python :dragon:
+# Python :snake:
 A ferramenta NLP, originalmente escrita em Java, foi recentemente utilizada em
 Python graças ao módulo [PyJNIus](https://github.com/kivy/pyjnius), o qual
 permite carregar métodos Java em Python.
@@ -117,9 +117,67 @@ jnius                1.1.0
 pyjnius              1.2.0    
 ```
 
+# Citação
+
+<details>
+<summary>Conversor G2P e identificador de vogal tônica</summary>
+
+```bibtex
+@article{Siravenha08,
+    author   = {Ana Siravenha and Nelson Neto and Valquíria Macedo and Aldebaro Klautau},
+    title    = {Uso de Regras Fonol\'{o}gicas com Determina\c{c}\~{a}o de Vogal T\^{o}nica para Convers\~{a}o Grafema-Fone em {P}ortugu\^{e}s {B}rasileiro},
+    journal  = {7th International Information and Telecommunication Technologies Symposium},
+    year     = {2008}
+}
+```
+</details>
+
+<details>
+<summary>Separador silábico</summary>
+
+```bibtex
+@article{Neto2015,
+    author   = {Neto, Nelson and Rocha, Willian and Sousa, Gleidson},
+    title    = {An open-source rule-based syllabification tool for Brazilian Portuguese},
+    journal  = {Journal of the Brazilian Computer Society},
+    year     = {2015},
+    month    = {Jan},
+    day      = {28},
+    volume   = {21},
+    number   = {1},
+    pages    = {1},
+    issn     = {1678-4804},
+    doi      = {10.1186/s13173-014-0021-9},
+    url      = {https://doi.org/10.1186/s13173-014-0021-9}
+}
+```
+</details>
+
+<details>
+<summary>Recursos livres para Português Brasileiro</summary>
+
+```bibtex
+@article{Neto10,
+    author   = {Neto, Nelson and Patrick, Carlos and Klautau, Aldebaro and Trancoso, Isabel},
+    title    = {Free tools and resources for Brazilian Portuguese speech recognition},
+    journal  = {Journal of the Brazilian Computer Society},
+    year     = {2011},
+    month    = {Mar},
+    day      = {01},
+    volume   = {17},
+    number   = {1},
+    pages    = {53--68},
+    issn     = {1678-4804},
+    doi      = {10.1007/s13173-010-0023-1},
+    url      = {https://doi.org/10.1007/s13173-010-0023-1}
+}
+```
+</details>
+
+
 [![FalaBrasil](doc/logo_fb_github_footer.png)](https://ufpafalabrasil.gitlab.io/ "Visite o site do Grupo FalaBrasil") [![UFPA](doc/logo_ufpa_github_footer.png)](https://portal.ufpa.br/ "Visite o site da UFPA")
 
-__Grupo FalaBrasil (2019)__ - https://ufpafalabrasil.gitlab.io/      
+__Grupo FalaBrasil (2021)__ - https://ufpafalabrasil.gitlab.io/      
 __Universidade Federal do Pará (UFPA)__ - https://portal.ufpa.br/     
 Daniel Santana - daniel.santana.1661@gmail.com    
 Cassio Batista - https://cassota.gitlab.io/
