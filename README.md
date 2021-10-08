@@ -1,9 +1,11 @@
 # NLP: Gerador de Ferramentas para Processamento de Linguagem Natural
+
 A ferramenta NLP disponibilizada pelo Grupo FalaBrasil conta atualmente com os
 módulos de conversão grafema-fonema (G2P em ambas modalidades *internal-word* e
 *cross-word*), separação silábica e identificador de vogal tônica.
 
-# Java :coffee:
+
+## Java :coffee:
 Compilação feita em versão `javac 1.8.0_162`.    
 Instalação de dependências no Ubuntu/Debian:   
 ```bash
@@ -67,14 +69,19 @@ Caso a localização da lib seja alterada, para compilação do
 `FalaBrasilNLP.java`, altere o _classpath_ de `".:fb_nlplib.jar"` para
 `".:/nova/localização/do/fb_nlplib.jar"`.
 
-# Python :snake:
+
+## Python :snake:
+
+:warning: Essa _wrapper_ é muito instável e as dependências não foram muito 
+bem estabelecidas. Use sob sua própria conta e risco :smile:
+
 A ferramenta NLP, originalmente escrita em Java, foi recentemente utilizada em
 Python graças ao módulo [PyJNIus](https://github.com/kivy/pyjnius), o qual
 permite carregar métodos Java em Python.
 
-## Instalação
+### Instalação
 
-### Conda
+#### Conda
 
 ```bash
 $ conda create --name fb-nlp-gen --file req_conda.txt
@@ -90,7 +97,7 @@ $ conda install -c conda-forge pyjnius
 $ conda install -c anaconda openjdk
 ```
 
-### Ubuntu / Debian (apt-get + pip)
+#### Ubuntu / Debian (apt-get + pip)
 
 Dependências:
 
@@ -117,10 +124,48 @@ jnius                1.1.0
 pyjnius              1.2.0    
 ```
 
-# Citação
 
-<details>
-<summary>Conversor G2P e identificador de vogal tônica</summary>
+## Módulos em Docker :whale:
+
+Atualmente somente a versão Java (jar) do G2P com caracteres UTF-8 foi 
+_containerized_. A imagem encontra-se disponível para download no docker hub 
+e pode ser baixada com o seguinte comando:
+
+```bash
+$ docker pull falabrasil/g2p
+```
+
+Em contrapartida, é também perfeitamente possível gerar uma imagem baseada no 
+Alpine Linux a partir desse mesmo repositório utilizando o seguinte comando:
+
+```bash
+$ docker build -f Dockerfile.g2p -t falabrasil/g2p .
+```
+
+A seguir, o uso é demonstrado em um arquivo recém escrito chamado `wlist.txt`,
+o qual deve ser passado como argumento ao `stdin` do container:
+
+```bash
+$ cat << EOF > /tmp/wlist.txt
+a
+galinha
+come
+bolinha
+EOF
+```
+
+```text
+$ cat /tmp/wlist | docker run --rm -i falabrasil/g2p 
+a       a
+galinha g a l i~ J  a
+come    k o~ m i
+bolinha b O l i~ J a
+```
+
+
+## Citação
+
+### Conversor G2P e identificador de vogal tônica
 
 ```bibtex
 @article{Siravenha08,
@@ -130,10 +175,8 @@ pyjnius              1.2.0
     year     = {2008}
 }
 ```
-</details>
 
-<details>
-<summary>Separador silábico</summary>
+### Separador silábico
 
 ```bibtex
 @article{Neto2015,
@@ -151,10 +194,8 @@ pyjnius              1.2.0
     url      = {https://doi.org/10.1186/s13173-014-0021-9}
 }
 ```
-</details>
 
-<details>
-<summary>Recursos livres para Português Brasileiro</summary>
+### Recursos livres para Português Brasileiro
 
 ```bibtex
 @article{Neto10,
@@ -172,7 +213,6 @@ pyjnius              1.2.0
     url      = {https://doi.org/10.1007/s13173-010-0023-1}
 }
 ```
-</details>
 
 
 [![FalaBrasil](doc/logo_fb_github_footer.png)](https://ufpafalabrasil.gitlab.io/ "Visite o site do Grupo FalaBrasil") [![UFPA](doc/logo_ufpa_github_footer.png)](https://portal.ufpa.br/ "Visite o site da UFPA")
