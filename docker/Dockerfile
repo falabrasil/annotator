@@ -4,4 +4,4 @@ RUN apk update && apk add openjdk8-jre-base
 
 COPY fb_nlplib.jar /
 
-CMD ["java", "-jar", "fb_nlplib.jar", "-g", "-i", "/dev/stdin"]
+CMD ["sh", "-c", "java -jar fb_nlplib.jar -t $(nproc) -g -i /dev/stdin"]

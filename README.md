@@ -139,7 +139,7 @@ Em contrapartida, é também perfeitamente possível gerar uma imagem baseada no
 Alpine Linux a partir desse mesmo repositório utilizando o seguinte comando:
 
 ```bash
-$ docker build -f Dockerfile.g2p -t falabrasil/g2p .
+$ docker build -t falabrasil/g2p:$(date +%Y%m%d) -f docker/Dockerfile .
 ```
 
 A seguir, o uso é demonstrado em um arquivo recém escrito chamado `wlist.txt`,
