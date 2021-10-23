@@ -127,19 +127,22 @@ pyjnius              1.2.0
 
 ## Módulos em Docker :whale:
 
-Atualmente somente a versão Java (jar) do G2P com caracteres UTF-8 foi 
-_containerized_. A imagem encontra-se disponível para download no docker hub 
-e pode ser baixada com o seguinte comando:
+As imagens encontram-se disponíveis para download no docker
+hub e podem ser baixadas com os seguintes comandos:
 
 ```bash
 $ docker pull falabrasil/g2p
+$ docker pull falabrasil/syl
+$ docker pull falabrasil/stress
 ```
 
-Em contrapartida, é também perfeitamente possível gerar uma imagem baseada no 
-Alpine Linux a partir desse mesmo repositório utilizando o seguinte comando:
+Em contrapartida, é também perfeitamente possível gerar imagens baseadas no
+Alpine Linux a partir desse mesmo repositório utilizando os seguintes comandos:
 
 ```bash
-$ docker build -t falabrasil/g2p:$(date +%Y%m%d) -f docker/Dockerfile .
+$ docker build -t falabrasil/g2p:$(date +%Y%m%d) -f docker/g2p/Dockerfile .
+$ docker build -t falabrasil/syl:$(date +%Y%m%d) -f docker/syl/Dockerfile .
+$ docker build -t falabrasil/stress:$(date +%Y%m%d) -f docker/stress/Dockerfile .
 ```
 
 A seguir, o uso é demonstrado em um arquivo recém escrito chamado `wlist.txt`,
@@ -154,12 +157,41 @@ bolinha
 EOF
 ```
 
+Conversão grafema-fonema:
+
 ```text
-$ cat /tmp/wlist | docker run --rm -i falabrasil/g2p 
+$ cat /tmp/wlist.txt | docker run --rm -i falabrasil/g2p
 a       a
 galinha g a l i~ J  a
 come    k o~ m i
 bolinha b O l i~ J a
+```
+
+Separação em sílabas:
+
+```text
+$ cat /tmp/wlist.txt | docker run --rm -i falabrasil/syl
+a       a
+galinha ga-li-nha
+come    co-me
+bolinha bo-li-nha
+```
+
+Identificação de vogal tônica:
+
+```text
+$ cat /tmp/wlist.txt | docker run --rm -i falabrasil/stress
+a       1
+galinha 4
+come    2
+bolinha 4
+```
+
+:warning: Não esqueça que, para os comandos com `docker run` funcionarem, as 
+imagens construídas com `docker build` devem ser *tagged* com a tag `latest`:
+
+```bash
+$ docker tag falabrasil/<MOD>:20211023 falabrasil/<MOD>:latest
 ```
 
 
@@ -215,7 +247,7 @@ bolinha b O l i~ J a
 ```
 
 
-[![FalaBrasil](doc/logo_fb_github_footer.png)](https://ufpafalabrasil.gitlab.io/ "Visite o site do Grupo FalaBrasil") [![UFPA](doc/logo_ufpa_github_footer.png)](https://portal.ufpa.br/ "Visite o site da UFPA")
+[![FalaBrasil](https://gitlab.com/falabrasil/avatars/-/raw/main/logo_fb_git_footer.png)](https://ufpafalabrasil.gitlab.io/ "Visite o site do Grupo FalaBrasil") [![UFPA](https://gitlab.com/falabrasil/avatars/-/raw/main/logo_ufpa_git_footer.png)](https://portal.ufpa.br/ "Visite o site da UFPA")
 
 __Grupo FalaBrasil (2021)__ - https://ufpafalabrasil.gitlab.io/      
 __Universidade Federal do Pará (UFPA)__ - https://portal.ufpa.br/     
