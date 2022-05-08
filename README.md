@@ -1,11 +1,11 @@
-# NLP: Gerador de Ferramentas para Processamento de Linguagem Natural
+# Annotator: Gerador de *tags* em texto
 
-A ferramenta NLP disponibilizada pelo Grupo FalaBrasil conta atualmente com os
-módulos de conversão grafema-fonema (G2P em ambas modalidades *internal-word* e
+Módulos de conversão grafema-fonema (G2P em ambas modalidades *internal-word* e
 *cross-word*), separação silábica e identificador de vogal tônica.
 
 
 ## Java :coffee:
+
 Compilação feita em versão `javac 1.8.0_162`.    
 Instalação de dependências no Ubuntu/Debian:   
 ```bash
@@ -126,6 +126,8 @@ pyjnius              1.2.0
 
 
 ## Módulos em Docker :whale:
+
+https://hub.docker.com/u/falabrasil
 
 As imagens encontram-se disponíveis para download no docker
 hub e podem ser baixadas com os seguintes comandos:
